@@ -98,7 +98,7 @@ function drawProtein(container, width, proteinLength, domains) {
     var left=0;
     var right=50;
 
-    var barHeight = 40;
+    var totalBarHeight = 50;
     var yPaddingBetweenBars = 5;
 
     var maxGroupSize = 0;
@@ -127,7 +127,7 @@ function drawProtein(container, width, proteinLength, domains) {
 
     var bottom = 0;
 
-    var height = top + bottom + barHeight * maxGroupSize + yPaddingBetweenBars * maxGroupSize - 1;
+    var height = top + bottom + totalBarHeight;
 
     var svg = d3.select(container).append('svg')
                 .attr('width', width)
@@ -164,7 +164,6 @@ function drawProtein(container, width, proteinLength, domains) {
 
     var middleLineY = (height - top + bottom) / 2 + top;
 
-    var barY = 0;
 
     svg.append('line')
         .attr("x1", xScale(0))
@@ -172,6 +171,11 @@ function drawProtein(container, width, proteinLength, domains) {
         .attr("x2", xScale(proteinLength))
         .attr("y2", middleLineY)
         .attr('class', 'proteinAxis');
+
+    var domainBarHeight = function (d) {
+        var groupSize = d['overlapGroupSize'];
+        return (totalBarHeight - ((groupSize -1) * yPaddingBetweenBars)) / groupSize;
+    };
 
     var domainY = function(d) {
         var groupSize = d['overlapGroupSize'];
@@ -181,9 +185,9 @@ function drawProtein(container, width, proteinLength, domains) {
         var paddingOffset = (groupSize - 1) / 2;
 
         var yFirstIndex = middleLineY
-                          - columnOffset * barHeight
+                          - columnOffset * domainBarHeight(d)
                           - paddingOffset * yPaddingBetweenBars;
-        return yFirstIndex + groupIndex * (barHeight + yPaddingBetweenBars);
+        return yFirstIndex + groupIndex * (domainBarHeight(d) + yPaddingBetweenBars);
     };
     var fontSize = 10;
 
@@ -199,7 +203,7 @@ function drawProtein(container, width, proteinLength, domains) {
         .attr("width", function (d) {
             return xScale(d['end']) - xScale(d['start']);
         })
-        .attr("height", barHeight)
+        .attr("height", domainBarHeight)
         .attr("fill", function (d) {
             return d['color'];
         })
@@ -225,10 +229,10 @@ function drawProtein(container, width, proteinLength, domains) {
             var tw = textWidth(d['name'], fontSize);
             var w = xScale(d['end']) - xScale(d['start']);
             if (tw <= w) {
-                return domainY(d) + barHeight / 2 + 5;
+                return domainY(d) + domainBarHeight(d) / 2 + 5;
             }
             else {
-                return domainY(d) + barHeight / 2;
+                return domainY(d) + domainBarHeight(d) / 2;
             }
         })
         .classed('vertical', function (d) {
