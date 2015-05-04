@@ -299,45 +299,50 @@ function drawProteins(container, width, proteins) {
 }
 $(document).ready(function () {
     var colors = {
-        0: '#a6cee3',
-        1: '#1f78b4',
-        2: '#b2df8a',
-        3: '#33a02c'
+        'BD1': '#595959',
+        'BD2': '#595959',
+        'ET': '#595959',
+        'PID': '#C85200',
+        'B Exon': '#FF800E',
+        'NLS': '#006BA4',
+        'BID': '#006BA4',
+        'BM': '#006BA4',
+        'NPS': '#006BA4'
     };
 
     var proteins = [
         {
             'length': 1362,
             'domains': [
-                {'start': 75, 'end': 147, 'name': 'BD1', 'color': colors[0]},
-                {'start': 286, 'end': 297, 'name': 'NLS', 'color': colors[1]},
+                {'start': 75, 'end': 147, 'name': 'BD1'},
+                {'start': 286, 'end': 297, 'name': 'NLS'},
 
-                {'start': 368, 'end': 440, 'name': 'BD2', 'color': colors[0]},
-                {'start': 484, 'end': 503, 'name': 'NPS', 'color': colors[2]},
+                {'start': 368, 'end': 440, 'name': 'BD2'},
+                {'start': 484, 'end': 503, 'name': 'NPS'},
 
-                {'start': 503, 'end': 547, 'name': 'BM', 'color': colors[3]},
-                {'start': 524, 'end': 579, 'name': 'BID', 'color': colors[2]},
+                {'start': 503, 'end': 547, 'name': 'BM'},
+                {'start': 524, 'end': 579, 'name': 'BID'},
 
-                {'start': 600, 'end': 682, 'name': 'ET', 'color': colors[0]},
+                {'start': 600, 'end': 682, 'name': 'ET'},
 
-                {'start': 1209, 'end': 1362, 'name': 'PID', 'color': colors[1]},
+                {'start': 1209, 'end': 1362, 'name': 'PID'},
             ],
             'name': 'Isoform A'
         },
         {
             'length': 794,
             'domains': [
-                {'start': 75, 'end': 147, 'name': 'BD1', 'color': colors[0]},
-                {'start': 286, 'end': 297, 'name': 'NLS', 'color': colors[1]},
+                {'start': 75, 'end': 147, 'name': 'BD1'},
+                {'start': 286, 'end': 297, 'name': 'NLS'},
 
-                {'start': 368, 'end': 440, 'name': 'BD2', 'color': colors[0]},
-                {'start': 484, 'end': 503, 'name': 'NPS', 'color': colors[2]},
+                {'start': 368, 'end': 440, 'name': 'BD2'},
+                {'start': 484, 'end': 503, 'name': 'NPS'},
 
-                {'start': 503, 'end': 547, 'name': 'BM', 'color': colors[3]},
-                {'start': 524, 'end': 579, 'name': 'BID', 'color': colors[2]},
+                {'start': 503, 'end': 547, 'name': 'BM'},
+                {'start': 524, 'end': 579, 'name': 'BID'},
 
-                {'start': 600, 'end': 682, 'name': 'ET', 'color': colors[0]},
-                {'start': 720, 'end': 794, 'name': 'B Exon', 'color': colors[0]}
+                {'start': 600, 'end': 682, 'name': 'ET'},
+                {'start': 720, 'end': 794, 'name': 'B Exon'}
 
             ],
             'name': 'Isoform B'
@@ -345,22 +350,32 @@ $(document).ready(function () {
         {
             'length': 722,
             'domains': [
-                {'start': 75, 'end': 147, 'name': 'BD1', 'color': colors[0]},
-                {'start': 286, 'end': 297, 'name': 'NLS', 'color': colors[1]},
+                {'start': 75, 'end': 147, 'name': 'BD1'},
+                {'start': 286, 'end': 297, 'name': 'NLS'},
 
-                {'start': 368, 'end': 440, 'name': 'BD2', 'color': colors[0]},
-                {'start': 484, 'end': 503, 'name': 'NPS', 'color': colors[2]},
+                {'start': 368, 'end': 440, 'name': 'BD2'},
+                {'start': 484, 'end': 503, 'name': 'NPS'},
 
-                {'start': 503, 'end': 547, 'name': 'BM', 'color': colors[3]},
-                {'start': 524, 'end': 579, 'name': 'BID', 'color': colors[2]},
+                {'start': 503, 'end': 547, 'name': 'BM'},
+                {'start': 524, 'end': 579, 'name': 'BID'},
 
-                {'start': 600, 'end': 682, 'name': 'ET', 'color': colors[0]},
+                {'start': 600, 'end': 682, 'name': 'ET'},
                // {'start': 729, 'end': 722, 'color': colors[0]}
 
             ],
             'name': 'Isoform C'
         }
     ];
+
+    for (var p=0; p < proteins.length; p++) {
+        var domains = proteins[p]['domains'];
+        for (var d=0; d < domains.length; d++) {
+            var domain = domains[d];
+            if (colors[domain['name']] !== undefined) {
+                domains[d]['color'] = colors[domain['name']];
+            }
+        }
+    }
 
     var width = 800;
     drawProteins('#resultingSvgContainer', width, proteins);

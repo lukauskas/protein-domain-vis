@@ -25,8 +25,8 @@ rect.domain {
     stroke-width: 1px;
 }
 text.domainLabel {
-    font-family: sans-serif;
-    fill: black;
+    font-family: "DeJavu Sans", sans-serif;
+    fill: white;
     font-size: 15px;
     text-anchor: middle;
 }
