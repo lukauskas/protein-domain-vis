@@ -115,6 +115,11 @@ function drawProteins(container, width, proteins) {
 
     // Horizontal margins
     var left = 0;
+    var proteinLabelWidth = 10;
+    for (var i = 0; i < proteins.length; i++) {
+        var labelTextWidth = textWidth(proteins[i]['name'], proteinLabelWidth);
+        if (labelTextWidth > left) left = labelTextWidth;
+    }
     var right = 50;
     var xScale = d3.scale.linear()
         .domain([1, maxProteinLength])
@@ -219,6 +224,13 @@ function drawProteins(container, width, proteins) {
         var proteinAxisY = topMarginIncludingTicks
             + totalDomainRectangleAreaHeight / 2
             + (totalDomainRectangleAreaHeight + paddingBetweenProteins) * p;
+
+        svg.append('text')
+            .attr('x', 0)
+            .attr('y', proteinAxisY)
+            .text(proteins[p]['name'])
+            .attr('class', 'proteinLabel')
+            .attr('dominant-baseline', 'central');
 
         var proteinLength = proteins[p]['length'];
         svg.append('line')

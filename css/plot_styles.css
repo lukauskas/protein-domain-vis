@@ -36,5 +36,9 @@ text.domainLabel.vertical {
     writing-mode: tb;
 }
 
+text.proteinLabel {
+    font-size: 13pt;
+}
+
 
 
