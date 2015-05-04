@@ -1,0 +1,40 @@
+.proteinTicks path,
+.proteinTicks line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.proteinTicks text {
+    font-family: sans-serif;
+    font-size: 10px;
+}
+
+line.proteinAxis {
+    stroke: black;
+}
+
+line.grid {
+    stroke: 'black';
+    opacity: 0.5;
+    stroke-dasharray: 5,5;
+}
+rect.domain {
+    opacity: 1;
+    stroke: black;
+    stroke-width: 1px;
+}
+text.domainLabel {
+    font-family: sans-serif;
+    fill: black;
+    font-size: 15px;
+    text-anchor: middle;
+}
+
+text.domainLabel.vertical {
+    font-size: 9px;
+    writing-mode: tb;
+}
+
+
+
